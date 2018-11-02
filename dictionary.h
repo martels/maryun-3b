@@ -17,6 +17,7 @@ public:
     int partition(int low, int high);
     void sort();
     void quicksort(int low, int high);
+    void heapsort();
     bool search(int first, int last, string key);
     int binarysearch(int first, int last, string key);
 	friend ostream& operator<< (ostream& ostr, const Dictionary& rhs);

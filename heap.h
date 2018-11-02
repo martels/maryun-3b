@@ -1,6 +1,7 @@
 #ifndef HEAP_H
 #define HEAP_H
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -8,62 +9,71 @@ template <typename T>
 class Heap
 {
 public:
-  *vector<T> heap;
+  vector<T> heap;
   int heapsize;
 
-  Heap(const T &initVal = T());
+//  Heap(const T &initVal = T());
+  Heap(vector<T> vect);
   int parent(int index);
   int left(int index);
   int right(int index);
   T getItem(int n);
-  int void initialiseMaxHeap();
-  void maxHeapify();
+  void initialiseMaxHeap();
+  void maxHeapify(int i);
   void buildMaxHeap();
   void heapsort();
 };
 
+// template <typename T>
+// Heap<T>::Heap(const T &initialVal = T())
+// {
+//   heap = new vector<T>(initialVal);
+//   heapsize = heap.size();
+// }
+
 template <typename T>
-Heap::Heap(const T &initialVal = T())
+Heap<T>::Heap(vector<T> vect)
 {
-    heap = new vector<T> (initialVal);
-    heapsize = heap.size();
+  heap = vector<T>(vect);
+  heapsize = heap.size();
 }
 
 template <typename T>
-int Heap::parent(int index)
+int Heap<T>::parent(int index)
 {
   double temp = (double)index;
   return ceil(index / 2);
 }
 
 template <typename T>
-int Heap::left(int index)
+int Heap<T>::left(int index)
 {
   return index * 2;
 }
 
 template <typename T>
-int Heap::right(int index)
+int Heap<T>::right(int index)
 {
   return (index * 2) + 1;
 }
 
 template <typename T>
-T Heap::getItem(int n)
+T Heap<T>::getItem(int n)
 {
   return this->heap[n];
 }
 
 template <typename T>
-void Heap::initialiseMaxHeap()
+void Heap<T>::initialiseMaxHeap()
 {
 }
 
 template <typename T>
-void Heap::maxHeapify(int i)
+void Heap<T>::maxHeapify(int i)
 {
   int l = left(i);
   int r = right(i);
+  int largest;
   T temp;
   if (l <= heapsize && heap[r] > heap[i])
     largest = 1;
@@ -82,28 +92,27 @@ void Heap::maxHeapify(int i)
 }
 
 template <typename T>
-void Heap::buildMaxHeap()
+void Heap<T>::buildMaxHeap()
 {
-  for (int i = floor(size / 2); i >= 1; i--)
+  for (int i = floor(heapsize / 2); i >= 1; i--)
   {
-      maxHeapify(i);
+    maxHeapify(i); //so we are having a problem with the main.h
   }
 }
 
 template <typename T>
-void Heap::heapsort()
+void Heap<T>::heapsort()
 {
-    T temp;
-    heapsize = heap.size();
-    buildMaxHeap();
-    for(int i = heap.size(); i >= 2; i--)
-    {
-        temp = heap[1];
-        heap[1] = heap[i];
-        heap[i] = temp;
-        heapsize - 1;
-        maxHeapify();
-    }
-    heapsize = heap.size();
+  T temp;
+  buildMaxHeap();
+  for (int i = heap.size(); i >= 2; i--)
+  {
+    temp = heap[0];
+    heap[0] = heap[i];
+    heap[i] = temp;
+    heapsize--; 
+    maxHeapify(0);
+  }
+  heapsize = heap.size();
 }
 #endif

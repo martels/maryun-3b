@@ -1,4 +1,5 @@
 #include "dictionary.h"
+#include "heap.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,7 +11,7 @@ Dictionary::Dictionary()
 {
 	length = 0;
 	ifstream dictionaryfile;
-	dictionaryfile.open("dictionary_small.txt");
+	dictionaryfile.open("dictionary.txt");
 
 	//Error Checking
 	if(dictionaryfile.fail())
@@ -19,7 +20,7 @@ Dictionary::Dictionary()
 		exit(1);
 	}
 	string str;
-	while(getline(dictionaryfile, str)) 
+	while(dictionaryfile >> str) // while(getline(dictionaryfile, str)) 
 	{
 	    if (str.size() > 0) 
 	    {
@@ -60,6 +61,12 @@ void Dictionary::sort()
 	return;
 }
 
+void Dictionary::heapsort()
+{
+	Heap<string> heap(dictionary);
+	heap.heapsort();
+	dictionary = heap.heap;
+}
 
 int Dictionary::partition(int low, int high)
 {
@@ -135,19 +142,19 @@ bool Dictionary::search(int first, int last, string key)
 
 int Dictionary::binarysearch(int first, int last, string key)
 {
-	if(last > first)
+	if(last >= first)
 	{
-		int mid = 1 + (last)/2;
-		cout << mid << " ";
-		if(key.compare(dictionary[mid]) == 0)
+		int mid = (first + last) / 2;
+		//cout << mid << " ";
+		if(key == dictionary[mid])
 			return mid;
 
-		if (key.compare(dictionary[mid]) < 0)
+		if (dictionary[mid] > key)
 			return binarysearch(first, mid - 1, key);
 		else
 			return binarysearch(mid + 1, last, key);
 	}
-
+// it isnt working correctly still
 	return -1;
 }
 

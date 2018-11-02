@@ -1,0 +1,163 @@
+Oh I see it now
+
+sweet 
+so are you seeing an massive 
+problems with the check 
+dictionary function?
+
+Are those compilation issues? Or runtime?
+
+those are the heap compilation
+issues
+
+the issue we are stumped on
+is why the checkdictonary 
+function is not working for
+large dictionaries
+
+Alright, so what exactly is the issue? And when does it happen?
+ill update the code, run it and show you
+
+Sounds good
+I see - I was opening the wrong file when I was running it
+
+did you see that?
+
+Yup
+
+Wait, you're quicksorting twice - with the while loop uncommented
+
+
+i know i commented it out because it was being annoying
+k
+watch terminal, this is on the big dictionary
+I see
+
+My first guess would be that your quicksort is not actually sorting and it only worked for the small dictionary because there wasn't much to partition
+
+Oh
+
+that makes sense but the same thing happens if we use selection sorting
+
+Ah I see it, your binary search is not actually using the middle, it's only taking half of last
+
+So for first = 10 and last = 15, you're using index 8 as the middle or something
+
+oh boy
+
+we still arent getting matches but atleast it isn't segment faulting
+
+btw you don't need to use compare to compare strings, you can just use the < and > operators (they internally use compare) Ah got it
+yea we know, we thought that could have been the reason for being weird and not showing matches
+
+
+i think we are going to just accept that the big dictionary isnt working
+and just get the switch part to worked
+
+It seemed to be working just a bit ago - was that a different sort? Ah small dictionary?
+no that was the smaller dictioonary
+
+Does selection sort work for the large dictionary?
+the sort works but the search doesnt
+
+So what I did to test that my sort was actually sorting is to print out the dictionary after sorting, but only the first ten words
+i just printed the whole thing, its sorting
+Hmmm
+
+Ah I'm just explaining this project to my roommate :)
+ah right
+
+what are you thinking?
+
+
+btw you can hover the red squiggles and it'll tell you what the issue is
+
+rip
+
+if I could suggest a different input strategy
+for what file?
+
+ah for choosing an algorithm?
+
+So I always use getline(cin, variable) for reading input because it accounts for the newline and doesn't get you into those situations where it's repeatedly asking you for values
+
+so my full read input looks something like this:
+
+#include <sstream> // Imports stringstream (a stream for strings) (cout and fstream are streams)  
+
+std::string input; // Store read input
+(int, char, bool, etc.) variable; // Read value
+
+while(true) { // Keep asking for input
+  getline(cin, input); // Read line
+  if(std::stringstream(input) >> variable) { // Make a stringstream out of the input and try to stream it into an int
+    // valid integer input
+    break; // Break out of input loop
+  }
+  else { // Wasn't able to stream into variable
+    // not a integer
+  }
+}
+
+That's it
+oh i see now, the stream lets it be something other than a string
+More that it allows you to stream out into a variable and that stream operation will return false if it's not able to do that
+
+Ah I misspelled it earlier
+
+
+Wait what is Dictionary::search() ? Ah got it
+it is the iterative version of binary sort 
+
+Could you run this? I added some basic searches to verify that binarysearch works as intended
+is it ready to compile?
+oops, all good now
+
+Ok so binarysearch is definitely the issue
+why does it work for small dictionary files?
+Alright, I'm back - internet conked out for a bit
+
+all good, whats going wrong? i though the binary search was all good?
+
+Yeah it seemed fine to me as well, so it might be an issue with either the way it's being called or the actual loading of the words
+
+Go for it
+Can you try that?
+Wait shoot, my bad
+
+Alright, try that
+????
+
+dict.dictionary[5962] should not be empty
+
+hmmmm
+
+thats better atleast its not empty anymore
+^
+Oh damn
+I think I might know what it is
+
+So remember I told you that windows and linux use different line endings? LF (\n) vs CRLF (\r\n)
+
+So when you're reading a file and you use getline into a string, it'll grab the line ending as well so all comparisons against a string without the matching line ending will fail
+
+And that's why when I printed "\"" << dict.dictionary[5962] << "\"", it showed only "lights and no closing quote. Because the \r character jumped to the beginning of the line
+
+so instead of getline when reading the file, you can just stream staight into the string
+
+I believe that will work
+:D
+
+that has fixed the quotes
+
+Wooo
+you absolute legend!!!!!!
+
+
+Haha
+
+Alright, I'll leave you to finish up and submit
+Good luck and if I don't talk to you sooner, I'll see you Monday
+thank you so much for your help!
+
+No problem!

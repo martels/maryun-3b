@@ -2,6 +2,9 @@
 #define MAIN_H
 
 #include "dictionary.h"
+#include "heap.h"
+#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -21,14 +24,14 @@ void checkDictionary(Dictionary &dict, const Grid &grid, int x, int y,
   int column = y;
   string letter = grid.mat[row][column];
   string word = letter;
-  int cols = (int) grid.mat.cols();
+  int cols = (int)grid.mat.cols();
   int ans;
 
   while (word.length() <= cols)
   {
     if (word.length() >= minLen)
     {
-      //cout << "here" << endl;
+      // cout << "here" << endl;
       ans = dict.binarysearch(first, dict.length - 1, word);
       if (ans != -1)
       {
@@ -66,7 +69,8 @@ void findMatches(Dictionary &dict, const Grid &grid)
           }
           else
           {
-            checkDictionary(dict, grid, i, j, x, y);
+            checkDictionary(dict, grid, i, j, x, y); // my feeling is that
+            // this line is not finishing for large dictionaries
           }
         }
     }
@@ -80,11 +84,42 @@ void search()
   Grid grid;
   grid.read_letters();
   Dictionary dict;
-  char selection = '0';
 
-  cout << "What Algorithm would you like to use? " << endl;
+  string selection;
+  int input;
 
-  dict.quicksort(0, dict.dictionary.size() - 1);
+  while (true)
+  {
+    cout << "What Algorithm would you like to use? " << endl;
+    cout << "1. Selection sort" << endl
+         << "2. Quick sort" << endl
+         << "3. Heap sort" << endl;
+    getline(cin, selection);
+
+    if (stringstream(selection) >> input)
+    {
+      if (input == 1)
+      {
+        cout << "You chose selection sort:" << endl;
+        dict.sort();
+      }
+      else if (input == 2)
+      {
+        cout << "You chose quick sort:" << endl;
+        dict.quicksort(0, dict.dictionary.size() - 1);
+      }
+      else if (input == 3)
+      {
+        cout << "You chose heap sort:" << endl;
+        dict.heapsort();
+      }
+      break;
+    }
+    else
+      cerr << "Incorrect Input." << endl;
+  }
+
+  // dict.quicksort(0, dict.dictionary.size() - 1);
 
   // cout << dict;
   cout << "\n\nMatches\n";
