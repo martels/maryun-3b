@@ -10,7 +10,7 @@ Dictionary::Dictionary()
 {
 	length = 0;
 	ifstream dictionaryfile;
-	dictionaryfile.open("dictionary.txt");
+	dictionaryfile.open("dictionary_small.txt");
 
 	//Error Checking
 	if(dictionaryfile.fail())
@@ -152,15 +152,20 @@ bool Dictionary::search(int first, int last, string key)
 
 int Dictionary::binarysearch(int first, int last, string key)
 {
-	int mid = 1 + (r - 1)/2;
+	if(last > first)
+	{
+		int mid = 1 + (last)/2;
 
-	if(dictionary[mid] == x)
-		return mid;
+		if(dictionary[mid] == key)
+			return mid;
 
-	if (arr[mid] > x)
-		return binarysearch(1, mid - 1, x);
+		if (dictionary[mid] >= key)
+			return binarysearch(first, mid - 1, key);
 
-	return binarysearch(mid + 1, r, x);
+		return binarysearch(mid + 1, last, key);
+	}
+
+	return -1;
 }
 
 ostream& operator<<(ostream& ostr, const Dictionary& rhs)

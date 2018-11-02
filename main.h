@@ -27,7 +27,7 @@ void checkDictionary(Dictionary &dict, const Grid &grid, int x, int y,
     if (word.length() >= minLen)
     {
       // cout << "here" << endl;
-      if (dict.binarysearch(first, dict.length - 1, word) != -1)
+      if (dict.search(first, dict.length - 1, word))
       {
         cout << "Found: " << word << endl;
       }
