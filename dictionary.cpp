@@ -131,23 +131,6 @@ bool Dictionary::search(int first, int last, string key)
 		}
 	}
 	return false;
-
- //        if(compare == 0)
- //        {
- //            return true;
- //        }
-        
-	// 	else if(compare < 0)
-	// 	{
-	// 		return search(first, mid - 1, key);
-	// 	}
-        
-	// 	else
-	// 	{
- //            return search(mid + 1, last, key);
-	// 	}
-	// }
-	// return false;
 }
 
 int Dictionary::binarysearch(int first, int last, string key)
@@ -155,14 +138,14 @@ int Dictionary::binarysearch(int first, int last, string key)
 	if(last > first)
 	{
 		int mid = 1 + (last)/2;
-
-		if(dictionary[mid] == key)
+		cout << mid << " ";
+		if(key.compare(dictionary[mid]) == 0)
 			return mid;
 
-		if (dictionary[mid] >= key)
+		if (key.compare(dictionary[mid]) < 0)
 			return binarysearch(first, mid - 1, key);
-
-		return binarysearch(mid + 1, last, key);
+		else
+			return binarysearch(mid + 1, last, key);
 	}
 
 	return -1;

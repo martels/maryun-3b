@@ -21,13 +21,16 @@ void checkDictionary(Dictionary &dict, const Grid &grid, int x, int y,
   int column = y;
   string letter = grid.mat[row][column];
   string word = letter;
+  int cols = (int) grid.mat.cols();
+  int ans;
 
-  while (word.length() <= grid.mat.cols())
+  while (word.length() <= cols)
   {
     if (word.length() >= minLen)
     {
-      // cout << "here" << endl;
-      if (dict.search(first, dict.length - 1, word))
+      //cout << "here" << endl;
+      ans = dict.binarysearch(first, dict.length - 1, word);
+      if (ans != -1)
       {
         cout << "Found: " << word << endl;
       }
@@ -77,8 +80,11 @@ void search()
   Grid grid;
   grid.read_letters();
   Dictionary dict;
+  char selection = '0';
 
-  dict.quicksort(0, dict.dictionary.size());
+  cout << "What Algorithm would you like to use? " << endl;
+
+  dict.quicksort(0, dict.dictionary.size() - 1);
 
   // cout << dict;
   cout << "\n\nMatches\n";
