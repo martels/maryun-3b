@@ -87,8 +87,8 @@ void findMatches(Dictionary &dict, const Grid &grid)
 //main function call
 void search()
 {
-  // ofstream file;
-  // file.open("sorteddictionary.txt");
+  ofstream fout;
+  fout.open("heapsort.txt");
   Grid grid;
   grid.read_letters();
   Dictionary dict;
@@ -120,6 +120,7 @@ void search()
       {
         cout << "You chose heap sort:" << endl;
         dict.heapsort();
+        fout << dict << endl;
       }
       break;
     }
@@ -132,7 +133,7 @@ void search()
   // cout << dict;
   cout << "\n\nMatches\n";
   findMatches(dict, grid);
-  //     file.close();
+  fout.close();
   do
   {
     cout << '\n' << "Press the Enter key to continue...";

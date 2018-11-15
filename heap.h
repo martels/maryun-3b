@@ -70,22 +70,22 @@ void Heap<T>::maxHeapify(int i)
   int r = right(i);
   int largest;
   T temp;
-  if (l <= heapsize && heap[r] > heap[i])
-    largest = 1;
+  if (l <= heapsize && heap[l] > heap[i])
+    largest = l;
   else
-    largest = r;
-
-  cout << "here2" << endl;
+    largest = i;
 
   if (r <= heapsize && heap[r] > heap[largest])
     largest = r;
   if (largest != i)
   {
+    cout << "here2" << endl;
     temp = this->heap[largest];
     this->heap[largest] = this->heap[i];
     this->heap[i] = this->heap[largest];
+    maxHeapify(largest);
   }
-  maxHeapify(largest);
+
 }
 
 //builds the heap
