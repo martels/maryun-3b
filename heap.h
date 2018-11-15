@@ -36,7 +36,7 @@ template <typename T>
 int Heap<T>::parent(int index)
 {
   double temp = (double)index;
-  return ceil(index / 2);
+  return ceil(temp / 2);
 }
 
 template <typename T>
@@ -75,6 +75,8 @@ void Heap<T>::maxHeapify(int i)
   else
     largest = r;
 
+  cout << "here2" << endl;
+
   if (r <= heapsize && heap[r] > heap[largest])
     largest = r;
   if (largest != i)
@@ -82,15 +84,17 @@ void Heap<T>::maxHeapify(int i)
     temp = this->heap[largest];
     this->heap[largest] = this->heap[i];
     this->heap[i] = this->heap[largest];
-    maxHeapify(largest);
   }
+  maxHeapify(largest);
 }
 
 //builds the heap
 template <typename T>
 void Heap<T>::buildMaxHeap()
 {
-  for (int i = floor(heapsize / 2); i >= 1; i--)
+  int size = heap.size();
+  double temp = (double) size;
+  for (int i = floor(temp / 2); i >= 1; i--)
   {
     maxHeapify(i); 
   }
@@ -102,6 +106,7 @@ void Heap<T>::heapsort()
 {
   T temp;
   buildMaxHeap();
+   cout << "here1" << endl;
   for (int i = heap.size(); i >= 2; i--)
   {
     temp = heap[0];
