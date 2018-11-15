@@ -3,6 +3,7 @@
 
 #include "dictionary.h"
 #include "heap.h"
+#include "grid.h"
 #include <sstream>
 #include <string>
 
